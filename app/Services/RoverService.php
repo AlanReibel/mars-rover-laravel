@@ -8,6 +8,7 @@ class RoverService
     private int $y;
     private string $direction;
     private array $obstacles;
+    private string $status;
 
     public function __construct(int $x, int $y, string $direction, array $obstacles = [])
     {
@@ -15,15 +16,18 @@ class RoverService
         $this->y = $y;
         $this->direction = $direction;
         $this->obstacles = $obstacles;
+        $this->status = 'success';
     }
 
     public function executeCommands(string $commands): array
     {
         // Procesar cada comando
         foreach (str_split($commands) as $command) {
-            if (!$this->move($command)) {
+            $moveResult = $this->move($command);
+            
+            if ($moveResult === false) {
                 return [
-                    'status' => 'obstacle_detected',
+                    'status' => $this->status,
                     'position' => [$this->x, $this->y],
                     'direction' => $this->direction
                 ];
@@ -57,27 +61,41 @@ class RoverService
 
     private function moveForward(): bool
     {
-        // Verificar si hay un obstáculo en la posición actual antes de mover
-        if ($this->isObstacle($this->x, $this->y + 1)) {  // Aquí verificamos si hay un obstáculo en la siguiente posición (para el movimiento hacia el norte)
-            return false;
-        }
-    
-        // Mover el rover
+        // Verificar límites del grid y obstáculos antes de mover
+        $newX = $this->x;
+        $newY = $this->y;
+
         switch ($this->direction) {
             case 'N':
-                $this->y++;
+                $newY++;
                 break;
             case 'S':
-                $this->y--;
+                $newY--;
                 break;
             case 'E':
-                $this->x++;
+                $newX++;
                 break;
             case 'W':
-                $this->x--;
+                $newX--;
                 break;
         }
-    
+
+        // Comprobar límites del grid (0-199)
+        if ($this->isBoundaryReached($newX, $newY)) {
+            $this->status = 'boundary_reached';
+            return false;
+        }
+
+        // Comprobar obstáculos
+        if ($this->isObstacle($newX, $newY)) {
+            $this->status = 'obstacle_detected';
+            return false;
+        }
+
+        // Actualizar posición si es válido
+        $this->x = $newX;
+        $this->y = $newY;
+
         return true;
     }
 
@@ -99,5 +117,10 @@ class RoverService
     {
         // Verificar si hay un obstáculo en la posición (x, y)
         return in_array([$x, $y], $this->obstacles);
+    }
+
+    private function isBoundaryReached(int $newX, int $newY): bool
+    {
+        return $newX < 0 || $newX > 199 || $newY < 0 || $newY > 199;
     }
 }
