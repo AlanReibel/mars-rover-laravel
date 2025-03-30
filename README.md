@@ -15,3 +15,7 @@
     ```sh
     php artisan serve
     ```
+4. Correr tests:
+    ```sh
+    php artisan test
+    ```
