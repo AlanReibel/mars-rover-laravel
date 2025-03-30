@@ -13,8 +13,9 @@ class RoverController extends Controller
             'x' => 'required|integer|min:0|max:199',
             'y' => 'required|integer|min:0|max:199',
             'direction' => 'required|in:N,S,E,W',
-            'commands' => 'required|string',
-            'obstacles' => 'array'
+            'commands' => 'required|string|regex:/^[FLR]+$/',
+            'obstacles' => 'array|max:10',
+            'obstacles.*.*' => 'integer|min:0|max:199'
         ]);
 
         $rover = new RoverService(
