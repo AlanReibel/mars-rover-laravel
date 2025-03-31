@@ -65,6 +65,6 @@ Se han creado pruebas de funcionalidad en:
 - `tests/Feature/RoverTest.php` → Pruebas de funcionalidad para validar el comportamiento esperado.
 
 Correr tests:
-    ```sh
-    php artisan test
-    ```
+```sh
+php artisan test
+```
