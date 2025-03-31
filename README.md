@@ -29,14 +29,22 @@ Es accesible en la 127.0.0.1:8000 una vez arrancado el servidor de php artisan.
     ```sh
     composer install
     ```
-3. Arrancar el servidor:
+    
+3. Copiar .env de ejemplo:
+    ```sh
+    cp .env.example .env
+    ```
+
+4. Generar clave:
+    ```sh
+    php artisan key:generate
+    ```
+
+5. Arrancar el servidor:
     ```sh
     php artisan serve
     ```
-4. Correr tests:
-    ```sh
-    php artisan test
-    ```
+
 
 ## Archivos clave
 
@@ -55,3 +63,8 @@ Los archivos principales donde se encuentra la lógica del rover son:
 Se han creado pruebas de funcionalidad en:
 
 - `tests/Feature/RoverTest.php` → Pruebas de funcionalidad para validar el comportamiento esperado.
+
+Correr tests:
+    ```sh
+    php artisan test
+    ```
