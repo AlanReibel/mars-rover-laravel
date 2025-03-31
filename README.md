@@ -13,10 +13,10 @@ La Api recibe peticiones POST a la ruta /api/rover/move con los siguientes pará
 
 ## 🛠️ Funcionalidad
 
-Para probar la API de una manera mas interactiva he creado una interface de usuario simple en vue.
+Para probar la API de una manera más interactiva he creado una interface de usuario simple en Vue.
 Incluye un formulario para enviar los datos al controlador y un display de los resultados.
-Esta creada la build y vinculada al la vista blade de vienvendia por lo que no es necesario ejecutar el servidor de vue.
-Es accesible en la 127.0.0.1:8000 una vez arrancado el servidor de php artisan.
+Está creada la build y vinculada al la vista blade de bienvenida por lo que no es necesario ejecutar el servidor Node.
+Es accesible en la URL http://127.0.0.1:8000 una vez arrancado el servidor de php artisan.
 
 ## 🚀 Instalación
 
